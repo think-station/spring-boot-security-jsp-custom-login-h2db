@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * Main application
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @ComponentScan
 @EnableAutoConfiguration
+@PropertySource(value = {"classpath:application.properties", "classpath:database.properties"})
 public class Application extends SpringBootServletInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class.getName());
 
