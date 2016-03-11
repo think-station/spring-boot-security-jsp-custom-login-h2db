@@ -28,6 +28,17 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    /**
+     * roles this user belongs to
+     */
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "Permission", joinColumns = {
+        @JoinColumn(name = "userId", nullable = false, updatable = false)},
+        inverseJoinColumns = {
+            @JoinColumn(name = "authorityId",
+                nullable = false, updatable = false)})
+    private Set<Authority> authorities = new HashSet<>(0);
+
     public User() {
         super();
     }
@@ -70,17 +81,6 @@ public class User {
         this.username = username;
     }
 
-    /**
-     * roles this user belongs to
-     */
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "User_Role", joinColumns = {
-        @JoinColumn(name = "userId", nullable = false, updatable = false)},
-        inverseJoinColumns = {
-            @JoinColumn(name = "roleId",
-                nullable = false, updatable = false)})
-    private Set<Role> roles = new HashSet<>(0);
-
     @Override
     public boolean equals(Object object) {
         if (object instanceof User) {
@@ -91,21 +91,17 @@ public class User {
 
     @JsonIgnore
     public Set<Authority> getAuthorities() {
-        Set<Authority> authorities = new HashSet<>();
-        for (Role role : this.getRoles()) {
-            authorities.addAll(role.getAuthorities());
-        }
         return authorities;
+    }
+
+    public void addAuthorities(Authority authority) {
+        this.authorities.add(authority);
     }
 
     public String toString() {
         return "User {" +
             "username: " + username + ", " +
             "email: " + email + ", " + "}";
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
     }
 
 }

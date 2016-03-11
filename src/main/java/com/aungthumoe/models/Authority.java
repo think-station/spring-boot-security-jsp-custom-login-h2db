@@ -8,8 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * An authority represents a permission within the system
@@ -18,14 +16,6 @@ import java.util.Set;
 public class Authority implements Serializable, GrantedAuthority {
 
     public static final long serialVersionUID = 43L;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,12 +27,6 @@ public class Authority implements Serializable, GrantedAuthority {
      */
     @Column
     private String type;
-
-    /**
-     * the roles this permission is assigned to
-     */
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "authorities")
-    private Set<Role> roles = new HashSet<>();
 
     public String getType() {
         return type;
@@ -57,12 +41,11 @@ public class Authority implements Serializable, GrantedAuthority {
         return type;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Long getId() {
+        return id;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setId(Long id) {
+        this.id = id;
     }
-
 }
