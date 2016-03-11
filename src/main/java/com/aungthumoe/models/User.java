@@ -71,15 +71,15 @@ public class User {
     }
 
     /**
-     * groups this user belongs to
+     * roles this user belongs to
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "User_Group", joinColumns = {
+    @JoinTable(name = "User_Role", joinColumns = {
         @JoinColumn(name = "userId", nullable = false, updatable = false)},
         inverseJoinColumns = {
-            @JoinColumn(name = "groupId",
+            @JoinColumn(name = "roleId",
                 nullable = false, updatable = false)})
-    private Set<Group> groups = new HashSet<>(0);
+    private Set<Role> roles = new HashSet<>(0);
 
     @Override
     public boolean equals(Object object) {
@@ -92,8 +92,8 @@ public class User {
     @JsonIgnore
     public Set<Authority> getAuthorities() {
         Set<Authority> authorities = new HashSet<>();
-        for (Group group : this.getGroups()) {
-            authorities.addAll(group.getAuthorities());
+        for (Role role : this.getRoles()) {
+            authorities.addAll(role.getAuthorities());
         }
         return authorities;
     }
@@ -104,11 +104,8 @@ public class User {
             "email: " + email + ", " + "}";
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void addGroup(Group group) {
-        this.groups.add(group);
-    }
 }

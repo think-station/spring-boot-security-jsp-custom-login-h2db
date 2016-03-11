@@ -10,8 +10,8 @@ import java.util.Set;
  * @author Aung Thu Moe
  */
 @Entity
-@Table(name = "GroupTable")
-public class Group {
+@Table(name = "Role")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +35,8 @@ public class Group {
      * the authorities this group has
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "Group_Authority", joinColumns = {
-        @JoinColumn(name = "groupId", nullable = false, updatable = false)},
+    @JoinTable(name = "Permission", joinColumns = {
+        @JoinColumn(name = "roleId", nullable = false, updatable = false)},
         inverseJoinColumns = {
             @JoinColumn(name = "authorityId",
                 nullable = false, updatable = false)})
@@ -44,7 +44,7 @@ public class Group {
     /**
      * the users in this group
      */
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
     @JsonIgnore
     private Set<User> users = new HashSet<>();
 

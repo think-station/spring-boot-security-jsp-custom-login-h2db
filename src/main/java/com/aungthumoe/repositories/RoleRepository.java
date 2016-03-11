@@ -1,10 +1,10 @@
 package com.aungthumoe.repositories;
 
-import com.aungthumoe.models.Group;
+import com.aungthumoe.models.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Aung Thu Moe
  */
-public interface GroupRepository extends JpaRepository<Group, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 }

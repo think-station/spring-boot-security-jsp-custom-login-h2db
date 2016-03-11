@@ -39,10 +39,10 @@ public class Authority implements Serializable, GrantedAuthority {
     private String type;
 
     /**
-     * the groups this permission is assigned to
+     * the roles this permission is assigned to
      */
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "authorities")
-    private Set<Group> groups = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     public String getType() {
         return type;
@@ -57,12 +57,12 @@ public class Authority implements Serializable, GrantedAuthority {
         return type;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 }

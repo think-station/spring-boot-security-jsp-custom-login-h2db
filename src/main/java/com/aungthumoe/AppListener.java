@@ -1,10 +1,10 @@
 package com.aungthumoe;
 
 import com.aungthumoe.models.Authority;
-import com.aungthumoe.models.Group;
+import com.aungthumoe.models.Role;
 import com.aungthumoe.models.User;
 import com.aungthumoe.services.AuthorityService;
-import com.aungthumoe.services.GroupService;
+import com.aungthumoe.services.RoleService;
 import com.aungthumoe.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class AppListener implements ApplicationListener<ApplicationEvent> {
     @Autowired
     private AuthorityService authorityService;
     @Autowired
-    private GroupService groupService;
+    private RoleService roleService;
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
@@ -43,30 +43,30 @@ public class AppListener implements ApplicationListener<ApplicationEvent> {
             this.authorityService.create(userAuth);
             LOGGER.debug("onApplicationEvent() Authority created");
 
-            Group adminGroup = new Group();
-            adminGroup.setName("admins");
-            this.groupService.create(adminGroup);
-            LOGGER.debug("onApplicationEvent() Group created");
-            adminGroup.getAuthorities().add(adminAuth);
-            adminGroup.getAuthorities().add(userAuth);
+            Role adminRole = new Role();
+            adminRole.setName("admins");
+            this.roleService.create(adminRole);
+            LOGGER.debug("onApplicationEvent() Role created");
+            adminRole.getAuthorities().add(adminAuth);
+            adminRole.getAuthorities().add(userAuth);
 
-            Group userGroup = new Group();
-            userGroup.setName("users");
-            this.groupService.create(userGroup);
-            LOGGER.debug("onApplicationEvent() Group created");
-            userGroup.getAuthorities().add(userAuth);
+            Role userRole = new Role();
+            userRole.setName("users");
+            this.roleService.create(userRole);
+            LOGGER.debug("onApplicationEvent() Role created");
+            userRole.getAuthorities().add(userAuth);
 
             User admin = new User("admin", "admin@localhost", "admin");
             this.userService.create(admin);
             LOGGER.debug("onApplicationEvent() User created");
-            admin.getGroups().add(adminGroup);
+            admin.getRoles().add(adminRole);
             this.userService.update(admin);
             LOGGER.debug("onApplicationEvent() User updated");
 
             User user = new User("user", "user@localhost", "user");
             this.userService.create(user);
             LOGGER.debug("onApplicationEvent() User created");
-            user.getGroups().add(userGroup);
+            user.getRoles().add(userRole);
             this.userService.update(user);
             LOGGER.debug("onApplicationEvent() User updated");
         }

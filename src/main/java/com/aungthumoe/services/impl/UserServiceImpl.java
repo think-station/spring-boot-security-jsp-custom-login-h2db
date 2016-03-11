@@ -1,6 +1,6 @@
 package com.aungthumoe.services.impl;
 
-import com.aungthumoe.models.Group;
+import com.aungthumoe.models.Role;
 import com.aungthumoe.models.User;
 import com.aungthumoe.repositories.UserRepository;
 import com.aungthumoe.services.UserService;
@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
             LOGGER.debug("User found!");
         };
         if (userOptional.isPresent() && this.passwordEncoder.matches(password, userOptional.get().getPassword())) {
-            for (Group group : userOptional.get().getGroups()) {
-                group.getAuthorities().size();
+            for (Role role : userOptional.get().getRoles()) {
+                role.getAuthorities().size();
             }
             return new UsernamePasswordAuthenticationToken(username, password, userOptional.get().getAuthorities());
         } else {
