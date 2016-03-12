@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aungthumoe</groupId>
-    <artifactId>spring-boot-security-custom-login</artifactId>
+    <artifactId>spring-boot-security-jsp-custom-login-h2db</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
